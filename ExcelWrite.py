@@ -46,4 +46,4 @@ def write_massive_to_excel(massive, col=1, row=1):
     time = dt.time()
     now = str(time.strftime('%H ч %M мин'))
 
-    wb.save(f"./{index}.xlsx")
+    wb.save(f"./{now} " + ("Атрибуты" if type(massive) == dict else "Значения") + ".xlsx")
