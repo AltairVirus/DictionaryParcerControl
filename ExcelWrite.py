@@ -37,8 +37,9 @@ def write_massive_to_excel(massive, col=1, row=1):
             row += 1
     elif type(massive) == dict:
         for subarray in massive:
+            ws.cell(column=col, row=row).value = subarray
             for index, value in enumerate(massive.get(subarray)):
-                ws.cell(column=col, row=row + index).value = value
+                ws.cell(column=col, row=row + 1 + index).value = value
             col += 1
 
     dt = datetime.datetime.now()
