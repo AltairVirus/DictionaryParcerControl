@@ -86,11 +86,13 @@ for a, a1 in enumerate(attrbs):
 print(attr_dict)
 
 full_data = []
-full_data.append(attrbs_reference_keys_list + item_reference_keys_list)
+# full_data.append(attrbs_reference_keys_list + item_reference_keys_list
+full_data.append(item_reference_keys_list)
 
 if values_new != []:
     for a_id, a in enumerate(keys_new):
-        full_data.append(keys_new[a_id] + values_new[a_id])
+        # full_data.append(keys_new[a_id] + values_new[a_id])
+        full_data.append(values_new[a_id])
 else:
     full_data = keys_new
 
