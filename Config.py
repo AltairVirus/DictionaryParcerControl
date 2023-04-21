@@ -1,9 +1,9 @@
 # Параметры соединения с ОРМ DB
 opm_user = "postgres"
 opm_password = "qwe123R!"
-opm_host = "100.111.0.50"
-opm_port = "1251"
-opm_database = "metadata"
+opm_host = "100.111.30.101"
+opm_port = "5432"
+opm_database = "opm-genres-test"
 
 # Параметры соединения с GENRES DB
 gr_user = "admin"

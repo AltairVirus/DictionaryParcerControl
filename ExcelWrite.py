@@ -30,13 +30,19 @@ def write_massive_to_excel(massive, col=1, row=1):
     wb = openpyxl.Workbook()
     ws = wb.active
 
-    for subarray in massive:
-        for index, value in enumerate(subarray):
-            ws.cell(column=col + index, row=row).value = value
-        row += 1
+    if type(massive) == list:
+        for subarray in massive:
+            for index, value in enumerate(subarray):
+                ws.cell(column=col + index, row=row).value = value
+            row += 1
+    elif type(massive) == dict:
+        for subarray in massive:
+            for index, value in enumerate(massive.get(subarray)):
+                ws.cell(column=col, row=row + index).value = value
+            col += 1
 
     dt = datetime.datetime.now()
     time = dt.time()
     now = str(time.strftime('%H ч %M мин'))
 
-    wb.save(f"./{now}.xlsx")
+    wb.save(f"./{index}.xlsx")
