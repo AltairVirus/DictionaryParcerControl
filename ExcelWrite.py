@@ -8,7 +8,6 @@ def read_massive_from_excel(file_name=Config.data_excel,
                             max_row=Config.max_col,
                             min_col=Config.min_row,
                             max_col=Config.max_row):
-
     book = openpyxl.load_workbook(file_name)
     sheet = book.worksheets[0]
 
@@ -26,7 +25,6 @@ def read_massive_from_excel(file_name=Config.data_excel,
 
 
 def write_massive_to_excel(massive, col=1, row=1):
-
     wb = openpyxl.Workbook()
     ws = wb.active
 

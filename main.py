@@ -1,29 +1,29 @@
 import DBExtraction
 import ExcelWrite
 
+keys = DBExtraction.db_connect('ri.str_value', db='genres', look_for=True)  # Парсим из genres/rule_item список из КЛЮЧЕЙ
+values = DBExtraction.db_connect('rv.value', db='genres', look_for=True)  # Парсим из genres/rule_values список из ЗНАЧЕНИЙ
+attrbs = DBExtraction.db_connect(db='genres', look_for=False)  # Парсим из genres/rule_values список из КОДОВ АТРИБУТОВ
+opm_attrbs = DBExtraction.db_connect(db='opm')  # Парсим из opm/rule_values список из ВСЕХ АТРИБУТОВ + КОДЫ
 
-keys = DBExtraction.db_connect('ri.str_value', db='genres', look_for=True)        # Парсим из genres/rule_item список из КЛЮЧЕЙ
-values = DBExtraction.db_connect('rv.value', db='genres', look_for=True)          # Парсим из genres/rule_values список из ЗНАЧЕНИЙ
-attrbs = DBExtraction.db_connect(db='genres', look_for=False)                     # Парсим из genres/rule_values список из КОДОВ АТРИБУТОВ
-opm_attrbs = DBExtraction.db_connect(db='opm')                                    # Парсим из opm/rule_values список из ВСЕХ АТРИБУТОВ + КОДЫ
-
-opm_attrbs_dict = {}                                                              # Преобразуем список из ОРМ в словарь
+opm_attrbs_dict = {}  # Преобразуем список из ОРМ в словарь
 for a in opm_attrbs:
     opm_attrbs_dict[a[0]] = a[1]
 
-reference_uniq_cols_name = ExcelWrite.read_massive_from_excel()                   # Cчитываем названия столбцов из Excel-файла
-
+reference_uniq_cols_name = ExcelWrite.read_massive_from_excel()  # Cчитываем названия столбцов из Excel-файла
+print (values)
 db_keys_list = []
-for a in values:                                                                  # Формируем список значений из БД
+for a in values:  # Формируем список значений из БД
     for b in a:
         for c in b:
             for key, value in c.items():
                 if key not in db_keys_list:
                     db_keys_list.append(key)
 
-full_reference_keys_list = []                                                     # Формируем список всех необходимых Header'ов
-item_reference_keys_list = []                                                     # Формируем список всех необходимых Header'ов для ЗНАЧЕНИЙ
-attrbs_reference_keys_list = []                                                   # Формируем список всех необходимых Header'ов для АТРИБУТОВ
+print(db_keys_list)
+full_reference_keys_list = []  # Формируем список всех необходимых Header'ов
+item_reference_keys_list = []  # Формируем список всех необходимых Header'ов для ЗНАЧЕНИЙ
+attrbs_reference_keys_list = []  # Формируем список всех необходимых Header'ов для АТРИБУТОВ
 for i in reference_uniq_cols_name:
     full_reference_keys_list.append(i[0])
     if i[0] in db_keys_list:
@@ -31,7 +31,7 @@ for i in reference_uniq_cols_name:
     elif i[0] not in ["ObjectType", "ProcessType"]:
         attrbs_reference_keys_list.append(i[0])
 
-try:                                                                              # Сортируем в список значения согласно Header'aм
+try:  # Сортируем в список значения согласно Header'aм
     values_new = []
     for a in values:
         for b in a:
@@ -42,7 +42,7 @@ try:                                                                            
                         if m == d:
                             help_list.append(c.get(d))
         values_new.append(help_list)
-except(Exception):
+except:
     values_new = []
 
 keys_new = []
@@ -53,11 +53,11 @@ for a in keys:
             help_list.append(c)
     keys_new.append(help_list)
 
-attr_dict = {}                                           # Создаем словарь, ID атрибута : [последовтельность из значений атрибута]
+attr_dict = {}  # Создаем словарь, ID атрибута : [последовтельность из значений атрибута]
 for a, a1 in enumerate(attrbs):
     if attrbs[a][1] in opm_attrbs_dict.keys():
         if opm_attrbs_dict.get(attrbs[a][1]) not in attr_dict.keys():
-            attr_dict[opm_attrbs_dict.get(attrbs[a][1])] = []                                                        #opm_attrbs_dict.get(attrbs[a][1])
+            attr_dict[opm_attrbs_dict.get(attrbs[a][1])] = []  # opm_attrbs_dict.get(attrbs[a][1])
             attr_dict[opm_attrbs_dict.get(attrbs[a][1])].append(attrbs[a][2])
         else:
             attr_dict[opm_attrbs_dict.get(attrbs[a][1])].append(attrbs[a][2])
@@ -77,10 +77,3 @@ else:
 
 ExcelWrite.write_massive_to_excel(full_data, col=1, row=1)
 ExcelWrite.write_massive_to_excel(attr_dict, col=1, row=1)
-
-
-
-
-
-
-

@@ -24,5 +24,3 @@ min_row = 1
 max_row = 1
 min_col = 1
 max_col = 12
-
-
