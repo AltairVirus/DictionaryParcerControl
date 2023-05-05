@@ -52,7 +52,7 @@ for a in keys:
             hlp_list.append(c)
     keys_new.append(hlp_list)
 
-attr_dict = {}  # Создаем словарь, ID атрибута : [последовтельность из значений атрибута]
+attr_dict = {}  # Создаем словарь, ID атрибута - [последовтельность из значений атрибута]
 for a, a1 in enumerate(attrbs):
     if attrbs[a][1] in opm_attrbs_dict.keys():
         if opm_attrbs_dict.get(attrbs[a][1]) not in attr_dict.keys():
