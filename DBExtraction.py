@@ -66,3 +66,4 @@ def db_connect(data_line='ri.str_value', db='genres', look_for=True):
             cursor.close()
             connection.close()
             print("Соединение с PostgreSQL закрыто")
+            print('-'*30)

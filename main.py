@@ -2,13 +2,13 @@ import DBExtraction
 import ExcelWrite
 
 
-def extract_values_from_collection(d, s=[]):
-    for i in d:
-        if type(i) in (set, tuple, dict, list):
-            extract_values_from_collection(i)
-        elif i not in s:
-            s.append(i)
-    return s
+def extract_values_from_collection(data, lst=[]):
+    for element in data:
+        if type(element) in (set, tuple, dict, list):
+            extract_values_from_collection(element)
+        elif element not in lst:
+            lst.append(element)
+    return lst
 
 
 keys = DBExtraction.db_connect('ri.str_value', db='genres', look_for=True)  # Парсим из genres/rule_item список КЛЮЧЕЙ
