@@ -1,13 +1,13 @@
 import openpyxl
-import Config
+import parameters as ps
 import datetime
 
 
-def read_massive_from_excel(file_name=Config.data_excel,
-                            min_row=Config.min_col,
-                            max_row=Config.max_col,
-                            min_col=Config.min_row,
-                            max_col=Config.max_row):
+def read_massive_from_excel(file_name=ps.data_excel,
+                            min_row=ps.min_col,
+                            max_row=ps.max_col,
+                            min_col=ps.min_row,
+                            max_col=ps.max_row):
     book = openpyxl.load_workbook(file_name)
     sheet = book.worksheets[0]
 
@@ -44,4 +44,4 @@ def write_massive_to_excel(massive, col=1, row=1):
     time = dt.time()
     now = str(time.strftime('%H ч %M мин'))
 
-    wb.save(f"./{now} " + ("Атрибуты" if type(massive) == dict else "Значения") + ".xlsx")
+    wb.save(f"files/{now} " + ("Атрибуты" if type(massive) == dict else "Значения") + ".xlsx")
